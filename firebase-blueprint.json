@@ -1,0 +1,98 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "A pet store catalog product published by the administrator.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the product.",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "price": {
+          "type": "number",
+          "description": "Price in UAH."
+        },
+        "stock": {
+          "type": "number",
+          "description": "Available quantity in stock."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "Compressed image data URL or HTTPS image URL.",
+          "maxLength": 400000
+        },
+        "isPublic": {
+          "type": "boolean",
+          "description": "Whether the product is visible in the public storefront."
+        },
+        "rarities": {
+          "type": "array",
+          "description": "Optional list of rarity badge codes (F, R, N, M), up to 4 items."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server last update timestamp."
+        }
+      },
+      "required": ["name", "price", "stock", "imageUrl", "isPublic", "createdAt", "updatedAt"]
+    },
+    "CatalogMeta": {
+      "title": "CatalogMeta",
+      "description": "Metadata tracking whether initial catalog placeholders have been seeded.",
+      "type": "object",
+      "properties": {
+        "seeded": {
+          "type": "boolean",
+          "description": "True once initial storefront items have been initialized."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of catalog initialization."
+        }
+      },
+      "required": ["seeded", "updatedAt"]
+    },
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Authorized store administrator record.",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Verified administrator email."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin"],
+          "description": "Administrator role."
+        }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Publicly readable catalog of pet store products; writes restricted to verified admins."
+    },
+    "/meta/{metaId}": {
+      "schema": { "$ref": "#/entities/CatalogMeta" },
+      "description": "Storefront initialization marker document."
+    },
+    "/admins/{userId}": {
+      "schema": { "$ref": "#/entities/AdminUser" },
+      "description": "Admin role records keyed by Firebase Auth UID."
+    }
+  }
+}

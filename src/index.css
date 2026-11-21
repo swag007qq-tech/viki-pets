@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@layer base {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  body {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #FDF5EE;
+    color: #5B3B2A;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+.viki-volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 5px;
+  border-radius: 9999px;
+  outline: none;
+  cursor: pointer;
+}
+
+.viki-volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  background: #FFFFFF;
+  box-shadow: 0 1px 4px rgba(91, 59, 42, 0.22);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.viki-volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.08);
+}
+
+.viki-volume-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 9999px;
+  background: #FFFFFF;
+  box-shadow: 0 1px 4px rgba(91, 59, 42, 0.22);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.viki-progress-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 5px;
+  border-radius: 9999px;
+  outline: none;
+  cursor: pointer;
+}
+
+.viki-progress-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: #9B735B;
+  box-shadow: 0 1px 3px rgba(91, 59, 42, 0.28);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.viki-progress-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.12);
+}
+
+.viki-progress-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 9999px;
+  background: #9B735B;
+  box-shadow: 0 1px 3px rgba(91, 59, 42, 0.28);
+  cursor: pointer;
+}
