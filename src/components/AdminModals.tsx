@@ -4,6 +4,7 @@ import {
   PRODUCT_LIMITS,
   RARITY_OPTIONS,
   type RarityCode,
+  verifyAdminPasswordClient,
 } from '../firebase';
 import { CloseIcon, PlusIcon, ShieldCheckIcon } from './VikiIcons';
 
@@ -52,19 +53,17 @@ export function AdminPasswordModal({
     setError(null);
 
     try {
-      const response = await fetch('/api/admin/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
-      });
-
-      const data = (await response.json()) as { ok?: boolean; token?: string; error?: string };
-      if (!response.ok || !data.ok || !data.token) {
-        setError(data.error || 'Неверный пароль');
+      const isValid = await verifyAdminPasswordClient(password);
+      if (!isValid) {
+        setError('Неверный пароль');
         return;
       }
 
-      onSuccess(data.token);
+      const sessionMarker =
+        typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+          ? crypto.randomUUID()
+          : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      onSuccess(sessionMarker);
     } catch {
       setError('Не удалось проверить пароль. Попробуйте снова.');
     } finally {

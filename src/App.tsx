@@ -180,7 +180,7 @@ export default function App() {
   };
 
   const ensureAdminWriteAuth = async () => {
-    const session = await ensureAdminFirebaseSession(adminToken);
+    const session = await ensureAdminFirebaseSession();
     if (!session.ready && session.needsAnonymousProvider) {
       setNeedsAnonymousSetup(true);
       throw new Error(
@@ -672,7 +672,7 @@ export default function App() {
           setAdminToken(token);
           setIsPasswordModalOpen(false);
           setAdminActionError(null);
-          void ensureAdminFirebaseSession(token)
+          void ensureAdminFirebaseSession()
             .then((res) => {
               if (!res.ready && res.needsAnonymousProvider) {
                 setNeedsAnonymousSetup(true);
